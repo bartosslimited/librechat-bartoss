@@ -1,0 +1,114 @@
+version: 1.3.4
+cache: true
+
+endpoints:
+
+  # ─────────────────────────────────────────────
+  # ANTHROPIC
+  # Latest: Opus 4.6 (Feb 5), Sonnet 4.6 (Feb 17)
+  # Retired: All Claude 3.x series
+  # ─────────────────────────────────────────────
+  anthropic:
+    models:
+      - claude-opus-4-6
+      - claude-sonnet-4-6
+      - claude-opus-4-5
+      - claude-sonnet-4-5
+      - claude-haiku-4-5
+
+  # ─────────────────────────────────────────────
+  # OPENAI
+  # Latest: GPT-4.1 family, o3, o4-mini
+  # Note: GPT-4o/4.1 removed from ChatGPT but still active in API
+  # ─────────────────────────────────────────────
+  openAI:
+    titleConvo: true
+    titleModel: "gpt-4.1-mini"
+
+  # ─────────────────────────────────────────────
+  # GOOGLE GEMINI
+  # Latest: Gemini 3.1 Pro (Feb 19), Gemini 3 Flash (Dec 2025)
+  # Note: Gemini 2.0 Flash retiring June 1 2026; 1.5 already retired
+  # ─────────────────────────────────────────────
+  google:
+    titleConvo: true
+    titleModel: "gemini-2.5-flash"
+
+  custom:
+
+    # ─────────────────────────────────────────────
+    # OPENROUTER
+    # Single key — access to 100+ models from all providers
+    # ─────────────────────────────────────────────
+    - name: "OpenRouter"
+      apiKey: "${OPENROUTER_KEY}"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default:
+          - anthropic/claude-opus-4-6
+          - openai/gpt-4.1
+          - openai/o3
+          - google/gemini-3.1-pro-preview
+          - mistralai/mistral-large-3
+          - meta-llama/llama-4-scout-17b
+          - deepseek/deepseek-r1
+          - qwen/qwen3-235b-a22b
+        fetch: true
+      titleConvo: true
+      titleModel: "openai/gpt-4.1-mini"
+
+    # ─────────────────────────────────────────────
+    # GROQ
+    # Fastest inference — open source models via LPU hardware
+    # Latest: Llama 4 now available; Llama 3.3 still top general model
+    # ─────────────────────────────────────────────
+    - name: "Groq"
+      apiKey: "${GROQ_API_KEY}"
+      baseURL: "https://api.groq.com/openai/v1"
+      models:
+        default:
+          - meta-llama/llama-4-scout-17b-16e-instruct  # Latest Llama 4
+          - llama-3.3-70b-versatile                     # Best general Llama 3.3
+          - llama-3.1-8b-instant                        # Ultra fast & cheap
+          - deepseek-r1-distill-llama-70b               # Reasoning via Groq speed
+          - mixtral-8x7b-32768                          # Long context MoE
+          - gemma2-9b-it                                # Google's compact model
+        fetch: false
+      titleConvo: true
+      titleModel: "llama-3.3-70b-versatile"
+
+    # ─────────────────────────────────────────────
+    # MISTRAL (direct)
+    # Latest: Mistral Large 3 (Dec 2025), Mistral 3 family
+    # Magistral = reasoning models (June 2025)
+    # ─────────────────────────────────────────────
+    - name: "Mistral"
+      apiKey: "${MISTRAL_API_KEY}"
+      baseURL: "https://api.mistral.ai/v1"
+      models:
+        default:
+          - mistral-large-latest     # → Mistral Large 3 (675B MoE) — best quality
+          - mistral-medium-latest    # → Medium 3.1 — great price/performance
+          - mistral-small-latest     # → Small 3.2 — fast & affordable
+          - magistral-medium-latest  # Reasoning model — chain-of-thought tasks
+          - codestral-latest         # Best-in-class code completion
+        fetch: false
+      titleConvo: true
+      titleModel: "mistral-small-latest"
+
+    # ─────────────────────────────────────────────
+    # xAI GROK
+    # Latest: Grok 4 (Jul 2025), Grok 3 (Feb 2025)
+    # Note: xAI acquired by SpaceX (Feb 2026)
+    # ─────────────────────────────────────────────
+    - name: "xAI Grok"
+      apiKey: "${XAI_API_KEY}"
+      baseURL: "https://api.x.ai/v1"
+      models:
+        default:
+          - grok-4          # Most powerful — advanced reasoning, 256K context
+          - grok-3          # Flagship — strong reasoning, real-time search
+          - grok-3-mini     # Fast & affordable — good for most tasks
+        fetch: false
+      titleConvo: true
+      titleModel: "grok-3-mini"
